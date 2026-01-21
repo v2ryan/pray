@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 2026 青年區禱讀表</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #A0522D;
+            --primary-dark: #654321;
+            --accent: #DAA520;
+            --accent-light: #FFD700;
+            --bg-cream: #FDF8F0;
+            --bg-warm: #FAF3E8;
+            --text-dark: #2C1810;
+            --text-muted: #5D4E37;
+            --border: #D4C4A8;
+            --shadow: rgba(139, 69, 19, 0.15);
+            --gradient-warm: linear-gradient(135deg, #FDF8F0 0%, #F5E6D3 100%);
+            --gradient-gold: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--gradient-warm);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(218, 165, 32, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(139, 69, 19, 0.08) 0%, transparent 100%);
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '✝';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.03;
+            top: -30px;
+            right: -20px;
+            color: var(--primary);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle { font-size: 1.1rem; color: var(--text-muted); }
+
+        .nav-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 2px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'Noto Sans TC', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-btn:hover {
+            background: var(--gradient-gold);
+            border-color: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(218, 165, 32, 0.3);
+        }
+
+        .nav-btn.today {
+            background: var(--gradient-gold);
+            border-color: var(--accent);
+            color: white;
+            font-weight: 500;
+        }
+
+        .date-display { text-align: center; margin: 20px 0; }
+
+        .current-date {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .weekday { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px var(--shadow);
+            margin: 25px 0;
+            overflow: hidden;
+            border: 1px solid rgba(212, 196, 168, 0.5);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header h2 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .card-header .icon { font-size: 1.5rem; }
+        .card-body { padding: 25px; }
+
+        .scripture-box {
+            background: var(--bg-warm);
+            border-radius: 16px;
+            padding: 25px;
+            border-left: 5px solid var(--accent);
+            position: relative;
+        }
+
+        .scripture-box::before {
+            content: '"';
+            position: absolute;
+            font-family: Georgia, serif;
+            font-size: 80px;
+            color: var(--accent);
+            opacity: 0.15;
+            top: -10px;
+            left: 15px;
+        }
+
+        .scripture-reference {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .scripture-text { font-size: 1.1rem; color: var(--text-dark); line-height: 2.2; }
+
+        .verse {
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: start;
+        }
+
+        .verse-num {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: right;
+            padding-top: 3px;
+        }
+
+        .verse-text { line-height: 1.9; }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .loading::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .rest-day-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left-color: #4CAF50;
+            text-align: center;
+            padding: 40px 25px;
+        }
+
+        .rest-day-box .rest-icon { font-size: 3rem; margin-bottom: 15px; }
+        .rest-day-box .rest-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            color: #2E7D32;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .rest-day-box .rest-msg { color: #388E3C; font-size: 1.05rem; }
+
+        .error-box {
+            background: #FFF3E0;
+            border-left-color: #FF9800;
+            text-align: center;
+            padding: 30px;
+            color: #E65100;
+        }
+
+        /* Tips Section */
+        .tips-section { margin-top: 40px; }
+
+        .tips-card {
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFF5E0 100%);
+            border: 2px solid var(--accent);
+        }
+
+        .tips-card .card-header { background: var(--gradient-gold); }
+
+        .tips-subtitle {
+            text-align: center;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .tip-item {
+            padding: 20px 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .tip-item:last-child { border-bottom: none; }
+
+        .tip-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-number {
+            background: var(--gradient-gold);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .tip-content { padding-left: 42px; }
+        .tip-content ul { list-style: none; }
+
+        .tip-content li {
+            padding: 8px 0;
+            color: var(--text-muted);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tip-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .logo { font-size: 2.5rem; }
+            .nav-controls { gap: 10px; }
+            .nav-btn { padding: 10px 18px; font-size: 0.9rem; }
+            .card-body { padding: 20px; }
+            .scripture-reference { font-size: 1.4rem; }
+            .scripture-text { font-size: 1rem; }
+            .tip-content { padding-left: 0; margin-top: 10px; }
+            .verse { grid-template-columns: 28px 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">📖</div>
+            <h1>2026 青年區禱讀表</h1>
+            <p class="subtitle">基督教會 · 青年團契</p>
+        </header>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="changeDay(-1)">
+                <span>←</span> 上一天
+            </button>
+            <button class="nav-btn today" onclick="goToToday()">
+                📅 今天
+            </button>
+            <button class="nav-btn" onclick="changeDay(1)">
+                下一天 <span>→</span>
+            </button>
+        </div>
+
+        <div class="date-display">
+            <div class="current-date" id="currentDate"></div>
+            <div class="weekday" id="weekday"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">📜</span>
+                <h2>今日禱讀經文</h2>
+            </div>
+            <div class="card-body">
+                <div id="scriptureContainer">
+                    <div class="loading">載入經文中</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-section">
+            <div class="card tips-card">
+                <div class="card-header">
+                    <span class="icon">✨</span>
+                    <h2>禱讀要訣（精簡版）</h2>
+                </div>
+                <div class="card-body">
+                    <p class="tips-subtitle">** 建立火熱禱告的關鍵要訣 **</p>
+
+                    <div class="tip-item">
+                        <div class="tip-title">
+                            <span class="tip-number">1</span>
+                            要「先讀再禱」
+                        </div>
+                        <div class="tip-content">
+                            <ul>
+                                <li>用心讀，大聲的多讀幾次經文的字句。</li>
+                                <li>不要急著禱告，讀到有味道才禱！！</li>
+                                <li>別人禱告了，你仍然可以重覆宣讀神的話。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-title">
+                            <span class="tip-number">2</span>
+                            要「重讀重禱」
+                        </div>
+                        <div class="tip-content">
+                            <ul>
+                                <li>按聖靈的感動，重覆讀出心裡「被觸動的字詞」，唔好重覆！</li>
+                                <li>加重語氣地讀一些「重要的關鍵字詞」！！</li>
+                                <li>禱告到後面時，如有感動，亦可以重新讀前面，自由禱告前面的相關意思。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-title">
+                            <span class="tip-number">3</span>
+                            要「短、接、快」
+                        </div>
+                        <div class="tip-content">
+                            <ul>
+                                <li>禱告一定要簡短！</li>
+                                <li>必須「緊接」著上一個的關鍵意思或被觸動的字眼，隨靈進深禱告。</li>
+                                <li>要爽、快接 - 不要等，不要停，等了就悶。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-title">
+                            <span class="tip-number">4</span>
+                            要「真」
+                        </div>
+                        <div class="tip-content">
+                            <ul>
+                                <li>不是自己想出來的，而是發自內心真實回應，或靈裡坦然的禱告或所得的啟示。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="tip-title">
+                            <span class="tip-number">5</span>
+                            要「口開、心開、靈開！！」
+                        </div>
+                        <div class="tip-content">
+                            <ul>
+                                <li>當對方禱告時，要同心主動回應「Amen」（以示對對方真誠的支持及專注同在！）</li>
+                                <li>向主耶穌/聖靈虛心敞開、領受及回應，讓主可啟發及回應我們，並賜下新的啟示。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🙏 願主的話成為你腳前的燈、路上的光 🙏</p>
+            <p style="margin-top: 10px; font-size: 0.85rem;">2026 青年區禱讀表</p>
+        </footer>
+    </div>
+
+    <script>
+        // ========== 2026 青年區禱讀表完整資料 ==========
+        const READING_PLAN = {
+            // ===== 1月 =====
+            '2026-01-02': '太6:7-8',
+            '2026-01-05': '太6:9-10',
+            '2026-01-07': '太6:11-12',
+            '2026-01-09': '太6:13',
+            '2026-01-12': '太6:14-15',
+            '2026-01-14': '太6:17-18',
+            '2026-01-16': '太6:19-21',
+            '2026-01-19': '太6:22-23',
+            '2026-01-21': '太6:24',
+            '2026-01-23': '太6:25-26',
+            '2026-01-26': '太6:27-29',
+            '2026-01-28': '太6:30,33-34',
+            '2026-01-30': '太7:1-2',
+            
+            // ===== 2月 =====
+            '2026-02-02': '太7:3,5',
+            '2026-02-04': '太7:7-8',
+            '2026-02-06': '太7:9-11',
+            '2026-02-09': '太7:13-14',
+            '2026-02-11': '太7:15-16',
+            '2026-02-13': '太7:17,19-20',
+            '2026-02-16': '太7:21',
+            // 18/2 農曆新年假期
+            '2026-02-20': '太7:24-25',
+            '2026-02-23': '太7:26-27',
+            '2026-02-25': '太8:2-3',
+            '2026-02-27': '太8:8,10,13',
+            
+            // ===== 3月 =====
+            '2026-03-02': '太8:14-16',
+            '2026-03-04': '太8:26-27',
+            '2026-03-06': '太9:5-7',
+            '2026-03-09': '太9:12-13',
+            '2026-03-11': '太9:15,17',
+            '2026-03-13': '太9:20-22',
+            '2026-03-16': '太9:24-25',
+            '2026-03-18': '太9:27-29',
+            '2026-03-20': '太9:32-33',
+            '2026-03-23': '太9:35-36',
+            '2026-03-25': '太9:37-38',
+            '2026-03-27': '太10:1-4',
+            '2026-03-30': '太10:7-8',
+            
+            // ===== 4月 =====
+            '2026-04-01': '太10:14-15',
+            '2026-04-03': '太10:16-17',
+            // 6/4 復活節翌日
+            '2026-04-08': '太10:19-20',
+            '2026-04-10': '太10:22',
+            '2026-04-13': '太10:26-27',
+            '2026-04-15': '太10:28',
+            '2026-04-17': '太10:29-31',
+            '2026-04-20': '太10:32-33',
+            '2026-04-22': '太10:38-39',
+            '2026-04-24': '太10:40,42',
+            '2026-04-27': '太11:4-6',
+            '2026-04-29': '太11:11-12',
+            
+            // ===== 5月 =====
+            '2026-05-01': '太11:18-19',
+            '2026-05-04': '太11:25',
+            '2026-05-06': '太11:26-27',
+            '2026-05-08': '太11:28-30',
+            '2026-05-11': '太12:7-8',
+            '2026-05-13': '太12:11-13',
+            '2026-05-15': '太12:18-19',
+            '2026-05-18': '太12:20-21',
+            '2026-05-20': '太12:25-26',
+            '2026-05-22': '太12:31-32',
+            // 25/5 佛誕翌日
+            '2026-05-27': '太12:33-34',
+            '2026-05-29': '太12:36-37',
+            
+            // ===== 6月 =====
+            '2026-06-01': '太12:39-40',
+            '2026-06-03': '太12:49-50',
+            '2026-06-05': '太13:3-6',
+            '2026-06-08': '太13:7-9',
+            '2026-06-10': '太13:11-12,16',
+            '2026-06-12': '太13:19-21',
+            '2026-06-15': '太13:22-23',
+            '2026-06-17': '太13:29-30',
+            // 19/6 端午節
+            '2026-06-22': '太13:31-32',
+            '2026-06-24': '太13:33',
+            '2026-06-26': '太13:39,41-43',
+            '2026-06-29': '太13:45',
+            
+            // ===== 7月 =====
+            // 1/7 香港特別行政區成立紀念日
+            '2026-07-03': '太13:49-50',
+            '2026-07-06': '太13:57-58',
+            '2026-07-08': '太14:16-18',
+            '2026-07-10': '太14:27-29',
+            '2026-07-13': '太14:30-32',
+            '2026-07-15': '太15:8-9',
+            '2026-07-17': '太15:10-11',
+            '2026-07-20': '太15:13-14',
+            '2026-07-22': '太15:18-19',
+            '2026-07-24': '太15:27-28',
+            '2026-07-27': '太15:30-31',
+            '2026-07-29': '太15:36-38',
+            '2026-07-31': '太16:6,12',
+            
+            // ===== 8月 =====
+            '2026-08-03': '太16:13,16-17',
+            '2026-08-05': '太16:19-20',
+            '2026-08-07': '太16:21-23',
+            '2026-08-10': '太16:24-25',
+            '2026-08-12': '太16:26-27',
+            '2026-08-14': '太17:5-7',
+            '2026-08-17': '太17:11-13',
+            '2026-08-19': '太17:20-21',
+            '2026-08-21': '太17:22-23',
+            '2026-08-24': '太18:3-5',
+            '2026-08-26': '太18:7,9',
+            '2026-08-28': '太18:10,13-14',
+            '2026-08-31': '太18:15-17',
+            
+            // ===== 9月 =====
+            '2026-09-02': '太18:18',
+            '2026-09-04': '太18:19-20',
+            '2026-09-07': '太18:32-35',
+            '2026-09-09': '太19:8-9',
+            '2026-09-11': '太19:14-15',
+            '2026-09-14': '太19:21',
+            '2026-09-16': '太19:23-24,26',
+            '2026-09-18': '太19:29-30',
+            '2026-09-21': '太20:14-16',
+            '2026-09-23': '太20:18-19',
+            // 25/9 中秋節
+            '2026-09-28': '太20:23',
+            '2026-09-30': '太20:27-28',
+            
+            // ===== 10月 =====
+            '2026-10-02': '太20:32-34',
+            '2026-10-05': '太21:9',
+            '2026-10-07': '太21:13',
+            '2026-10-09': '太21:21-22',
+            '2026-10-12': '太21:31-32',
+            '2026-10-14': '太21:43',
+            '2026-10-16': '太22:8-9',
+            // 19/10 重陽節翌日
+            '2026-10-21': '太22:12-14',
+            '2026-10-23': '太22:20-21',
+            '2026-10-26': '太22:29-30',
+            '2026-10-28': '太22:32',
+            '2026-10-30': '太22:37-40',
+            
+            // ===== 11月 =====
+            '2026-11-02': '太23:3-5',
+            '2026-11-04': '太23:11-12',
+            '2026-11-06': '太23:23',
+            '2026-11-09': '太23:27-28',
+            '2026-11-11': '太24:4-5',
+            '2026-11-13': '太24:6-8',
+            '2026-11-16': '太24:9,12-13',
+            '2026-11-18': '太24:14',
+            '2026-11-20': '太24:23-25',
+            '2026-11-23': '太24:30-31',
+            '2026-11-25': '太24:35-36,44',
+            '2026-11-27': '太24:45-47',
+            '2026-11-30': '太25:11-13',
+            
+            // ===== 12月 =====
+            '2026-12-02': '太25:21',
+            '2026-12-04': '太25:28-30',
+            '2026-12-07': '太25:31-32',
+            '2026-12-09': '太25:40-41,46',
+            '2026-12-11': '太26:1-2',
+            '2026-12-14': '太26:10-13',
+            '2026-12-16': '太26:24-25',
+            '2026-12-18': '太26:26-28',
+            '2026-12-21': '太26:31-32',
+            '2026-12-23': '太26:38-39,42',
+            // 25/12 聖誕節
+            '2026-12-28': '太26:40-41',
+            '2026-12-30': '太26:52-54'
+        };
+
+        let currentDate = new Date();
+        const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+        function formatDate(date) {
+            return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+
+        function formatDateKey(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        // 解析經文參考（支援複雜格式如 太6:30,33-34）
+        function parseReference(ref) {
+            // 基本格式: 書卷+章:節-節 或 書卷+章:節,節-節
+            const match = ref.match(/^(太)(\d+):(.+)$/);
+            if (!match) return null;
+            
+            const [, book, chapter, versesPart] = match;
+            return { book, chapter: parseInt(chapter), versesPart, originalRef: ref };
+        }
+
+        // 從信望愛 API 獲取經文
+        async function fetchScripture(ref) {
+            const parsed = parseReference(ref);
+            if (!parsed) {
+                return `<div class="error-box">⚠️ 無法解析經文參考：${ref}</div>`;
+            }
+
+            try {
+                // 使用 qstr 格式查詢
+                const url = `https://bible.fhl.net/json/qsb.php?qstr=${encodeURIComponent(ref)}&version=unv&gb=0`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data && data.record && data.record.length > 0) {
+                    let html = `<div class="scripture-box">
+                        <div class="scripture-reference">馬太福音 ${parsed.chapter}:${parsed.versesPart}</div>
+                        <div class="scripture-text">`;
+                    
+                    data.record.forEach(verse => {
+                        html += `<div class="verse">
+                            <span class="verse-num">${verse.sec}</span>
+                            <span class="verse-text">${verse.bible_text}</span>
+                        </div>`;
+                    });
+                    
+                    html += '</div></div>';
+                    return html;
+                } else {
+                    return `<div class="error-box">⚠️ 無法載入經文：${ref}<br>請檢查網絡連接</div>`;
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                return `<div class="error-box">⚠️ 載入經文時發生錯誤<br>${error.message}</div>`;
+            }
+        }
+
+        // 更新顯示
+        async function updateDisplay() {
+            document.getElementById('currentDate').textContent = formatDate(currentDate);
+            document.getElementById('weekday').textContent = weekdays[currentDate.getDay()];
+
+            const container = document.getElementById('scriptureContainer');
+            const dateKey = formatDateKey(currentDate);
+            const reading = READING_PLAN[dateKey];
+
+            if (reading) {
+                container.innerHTML = '<div class="loading">載入經文中</div>';
+                const html = await fetchScripture(reading);
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `
+                    <div class="scripture-box rest-day-box">
+                        <div class="rest-icon">🙏</div>
+                        <div class="rest-title">今日暫停禱讀</div>
+                        <div class="rest-msg">休息日或公眾假期<br>願你有美好的一天！</div>
+                    </div>`;
+            }
+        }
+
+        function changeDay(delta) {
+            currentDate.setDate(currentDate.getDate() + delta);
+            updateDisplay();
+        }
+
+        function goToToday() {
+            currentDate = new Date();
+            updateDisplay();
+        }
+
+        // 鍵盤導航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeDay(-1);
+            if (e.key === 'ArrowRight') changeDay(1);
+        });
+
+        // 初始化
+        updateDisplay();
+    </script>
+</body>
+</html>

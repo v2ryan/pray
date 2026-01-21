@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>📖 2026 青年區禱讀表</title>
+    <title>📖 青年區禱讀表 🌳</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
@@ -296,14 +296,14 @@
         /* Quick Nav */
         .quick-nav {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             padding: 0 16px;
             margin-bottom: 16px;
             align-items: center;
         }
 
         .quick-nav button {
-            padding: 14px 16px;
+            padding: 14px 10px;
             border: none;
             border-radius: 14px;
             font-size: 1rem;
@@ -313,7 +313,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 4px;
+            white-space: nowrap;
             transition: transform 0.2s;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
@@ -323,11 +324,12 @@
         }
 
         .btn-today {
-            flex: 1.6;
-            padding: 16px;
+            flex: 1.4;
+            padding: 16px 8px;
             background: linear-gradient(135deg, var(--success) 0%, #4A9960 100%);
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.35rem;
+            /* Increased font size */
         }
 
         .btn-today .icon {
@@ -753,7 +755,7 @@
                 <span class="arrow">◀</span> 前一天
             </button>
             <button class="btn-today" onclick="goToToday()">
-                <span class="icon">📍</span> 今天
+                <span class="icon">📍今天</span>
             </button>
             <button class="btn-next" onclick="changeDay(1)">
                 下一天 <span class="arrow">▶</span>

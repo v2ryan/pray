@@ -1,39 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>📖 2026 青年區禱讀表</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --primary: #2E7D6B;
-            --primary-dark: #1B5E4A;
-            --primary-light: #4DB6A0;
-            --accent: #9575CD;
-            --accent-light: #D1C4E9;
-            --accent-dark: #7E57C2;
-            --bg: #F5FDF9;
+            /* Prayer reading - soft mint green */
+            --primary: #6BAF92;
+            --primary-dark: #4A9A7A;
+            --primary-light: #A8D5C2;
+            --primary-bg: #F0FAF5;
+            --primary-card: #E8F5EE;
+
+            /* Meditation - soft lavender purple */
+            --meditation-primary: #9B8EC4;
+            --meditation-light: #D4CCE8;
+            --meditation-bg: #F8F5FF;
+            --meditation-card: #EDE8F7;
+
+            /* Sunday - soft peach orange */
+            --sunday-primary: #E8A87C;
+            --sunday-light: #FAD9C1;
+            --sunday-bg: #FFF8F3;
+            --sunday-card: #FFEEE2;
+
+            /* Rest/Holiday - soft sky blue */
+            --rest-primary: #7EB8D8;
+            --rest-light: #C5E3F3;
+            --rest-bg: #F3FAFD;
+            --rest-card: #E3F3FA;
+
+            /* Common */
+            --bg: #FAFCFA;
             --bg-card: #FFFFFF;
-            --text: #1A3A32;
-            --text-light: #4A7065;
-            --border: #C8E6DF;
-            --success: #43A047;
-            --shadow: 0 2px 12px rgba(46, 125, 107, 0.12);
-            /* Meditation day colors - soft lavender */
-            --meditation-bg: #F8F4FF;
-            --meditation-primary: #9575CD;
-            --meditation-light: #EDE7F6;
-            /* Sunday colors - warm rose */
-            --sunday-bg: #FFF8F6;
-            --sunday-primary: #E91E63;
-            --sunday-light: #FCE4EC;
+            --text: #2D3A36;
+            --text-light: #5A6B64;
+            --border: #D8E8E0;
+            --success: #5AAF6A;
+            --shadow: 0 2px 12px rgba(107, 175, 146, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -52,70 +70,81 @@
             background: var(--sunday-bg);
         }
 
+        body.rest-mode {
+            background: var(--rest-bg);
+        }
+
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 0 0 100px 0;
         }
 
-        /* Header */
+        /* Header - softer, lighter */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: white;
-            padding: 20px 16px;
+            padding: 24px 16px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         body.meditation-mode .header {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            background: linear-gradient(135deg, var(--meditation-light) 0%, var(--meditation-primary) 100%);
         }
 
         body.sunday-mode .header {
-            background: linear-gradient(135deg, var(--sunday-primary) 0%, #AD1457 100%);
+            background: linear-gradient(135deg, var(--sunday-light) 0%, var(--sunday-primary) 100%);
+        }
+
+        body.rest-mode .header {
+            background: linear-gradient(135deg, var(--rest-light) 0%, var(--rest-primary) 100%);
         }
 
         .header h1 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 4px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .header .subtitle {
-            font-size: 0.85rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            opacity: 0.95;
         }
 
         /* Date Display with Collapsible Calendar */
         .date-display {
             background: var(--bg-card);
-            margin: 12px;
-            border-radius: 16px;
+            margin: 16px;
+            border-radius: 20px;
             box-shadow: var(--shadow);
             overflow: hidden;
         }
 
         .date-toggle {
             width: 100%;
-            padding: 16px 20px;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            padding: 18px 20px;
+            background: var(--primary-card);
             border: none;
-            color: white;
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
             font-family: inherit;
+            border-radius: 20px;
         }
 
         body.meditation-mode .date-toggle {
-            background: linear-gradient(135deg, #B39DDB 0%, var(--accent) 100%);
+            background: var(--meditation-card);
         }
 
         body.sunday-mode .date-toggle {
-            background: linear-gradient(135deg, #F48FB1 0%, var(--sunday-primary) 100%);
+            background: var(--sunday-card);
+        }
+
+        body.rest-mode .date-toggle {
+            background: var(--rest-card);
         }
 
         .date-toggle-left {
@@ -124,19 +153,31 @@
             gap: 12px;
         }
 
-        .date-toggle-left .icon { font-size: 1.5rem; }
-        .date-toggle h2 { font-size: 1.2rem; font-weight: 700; }
-        .date-toggle .weekday { font-size: 0.9rem; opacity: 0.9; font-weight: 400; }
-
-        .date-toggle .arrow {
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-            opacity: 0.8;
+        .date-toggle-left .icon {
+            font-size: 1.6rem;
         }
 
-        .date-toggle.open .arrow { transform: rotate(180deg); }
+        .date-toggle h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+        }
 
-        .tap-hint { font-size: 0.75rem; opacity: 0.7; margin-right: 8px; }
+        .date-toggle .arrow {
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            color: var(--text-light);
+        }
+
+        .date-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .tap-hint {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-right: 8px;
+        }
 
         /* Calendar - HIDDEN by default */
         .calendar-content {
@@ -145,11 +186,13 @@
             transition: max-height 0.3s ease-out;
         }
 
-        .calendar-content.open { max-height: 400px; }
+        .calendar-content.open {
+            max-height: 420px;
+        }
 
         .calendar-inner {
-            padding: 12px;
-            border-top: 1px solid rgba(46, 125, 107, 0.2);
+            padding: 16px;
+            border-top: 1px solid var(--border);
         }
 
         .month-nav {
@@ -160,13 +203,13 @@
         }
 
         .month-nav button {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border: 2px solid var(--border);
             background: var(--bg-card);
             color: var(--primary);
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -175,27 +218,30 @@
         }
 
         .month-nav button:active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+            background: var(--primary-light);
+            border-color: var(--primary-light);
         }
 
-        .month-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+        .month-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+        }
 
         .weekday-row {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-light);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 6px;
         }
 
         .day-cell {
@@ -203,23 +249,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s;
             position: relative;
         }
 
-        .day-cell.other-month { color: #ccc; }
+        .day-cell.other-month {
+            color: #ccc;
+        }
 
-        .day-cell.has-reading { font-weight: 600; color: var(--primary-dark); }
+        .day-cell.has-reading {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
 
         .day-cell.has-reading::after {
             content: '';
             position: absolute;
             bottom: 4px;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: var(--primary);
             border-radius: 50%;
         }
@@ -230,209 +281,296 @@
             font-weight: 700;
         }
 
-        .day-cell.selected::after { background: white; }
-        .day-cell.today { border: 2px solid var(--primary); }
-        .day-cell:active { transform: scale(0.9); }
+        .day-cell.selected::after {
+            background: white;
+        }
+
+        .day-cell.today {
+            border: 2px solid var(--primary);
+        }
+
+        .day-cell:active {
+            transform: scale(0.9);
+        }
 
         /* Quick Nav */
         .quick-nav {
             display: flex;
-            gap: 8px;
-            padding: 0 12px;
-            margin-bottom: 12px;
+            gap: 10px;
+            padding: 0 16px;
+            margin-bottom: 16px;
             align-items: center;
         }
 
         .quick-nav button {
-            padding: 12px 14px;
+            padding: 14px 16px;
             border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            border-radius: 14px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             transition: transform 0.2s;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .quick-nav button:active { transform: scale(0.98); }
+        .quick-nav button:active {
+            transform: scale(0.98);
+        }
 
         .btn-today {
-            flex: 1.5;
+            flex: 1.6;
             padding: 16px;
-            background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
+            background: linear-gradient(135deg, var(--success) 0%, #4A9960 100%);
             color: white;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
         }
 
-        .btn-today .icon { font-size: 1.4rem; }
+        .btn-today .icon {
+            font-size: 1.5rem;
+        }
 
-        .btn-prev, .btn-next {
+        .btn-prev,
+        .btn-next {
             flex: 1;
             background: var(--bg-card);
             color: var(--text);
             border: 2px solid var(--border) !important;
-            font-size: 0.9rem;
         }
 
-        .btn-prev .arrow, .btn-next .arrow {
-            font-size: 1.2rem;
+        .btn-prev .arrow,
+        .btn-next .arrow {
+            font-size: 1.1rem;
             font-weight: 900;
         }
 
-        /* Scripture Section */
+        /* Scripture Section - softer header */
         .scripture-section {
             background: var(--bg-card);
-            margin: 12px;
-            border-radius: 16px;
+            margin: 16px;
+            border-radius: 20px;
             box-shadow: var(--shadow);
             overflow: hidden;
         }
 
         .scripture-header {
-            background: var(--primary);
-            color: white;
-            padding: 14px 16px;
+            background: var(--primary-card);
+            color: var(--text);
+            padding: 16px 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
         }
 
         body.meditation-mode .scripture-header {
-            background: var(--meditation-primary);
+            background: var(--meditation-card);
         }
 
         body.sunday-mode .scripture-header {
-            background: var(--sunday-primary);
+            background: var(--sunday-card);
         }
 
-        .scripture-header .icon { font-size: 1.3rem; }
-        .scripture-header h3 { font-size: 1rem; font-weight: 600; }
+        body.rest-mode .scripture-header {
+            background: var(--rest-card);
+        }
 
-        .scripture-content { padding: 16px; }
+        .scripture-header .icon {
+            font-size: 1.4rem;
+        }
+
+        .scripture-header h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .scripture-content {
+            padding: 20px;
+        }
 
         .scripture-ref {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--primary);
-            padding: 12px;
-            background: #E8F5F1;
-            border-radius: 10px;
-            margin-bottom: 16px;
+            color: var(--primary-dark);
+            padding: 14px;
+            background: var(--primary-card);
+            border-radius: 12px;
+            margin-bottom: 18px;
+            border: 1px dashed var(--primary-light);
         }
 
         body.meditation-mode .scripture-ref {
             color: var(--meditation-primary);
-            background: var(--meditation-light);
+            background: var(--meditation-card);
+            border-color: var(--meditation-light);
         }
 
-        .scripture-text { font-size: 1rem; line-height: 1.9; }
+        .scripture-text {
+            font-size: 1.05rem;
+            line-height: 2;
+        }
 
         .verse {
             display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            padding: 10px;
-            background: #FAFAFA;
-            border-radius: 8px;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 14px;
+            background: #FAFFFE;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-light);
         }
 
         body.meditation-mode .verse {
-            background: #F3E5F5;
+            background: #FDFAFF;
+            border-left-color: var(--meditation-light);
         }
 
         .verse-num {
             color: var(--primary);
             font-weight: 700;
-            font-size: 0.85rem;
-            min-width: 24px;
+            font-size: 0.9rem;
+            min-width: 26px;
         }
 
         body.meditation-mode .verse-num {
             color: var(--meditation-primary);
         }
 
-        .verse-text { flex: 1; color: var(--text); }
+        .verse-text {
+            flex: 1;
+            color: var(--text);
+        }
 
         .loading {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             color: var(--text-light);
         }
 
         .loading-spinner {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border: 3px solid var(--border);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
+            margin: 0 auto 18px;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Meditation Day Box */
         .meditation-box {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #EDE7F6 0%, #D1C4E9 100%);
-            border-radius: 12px;
-            margin-bottom: 16px;
+            padding: 28px 20px;
+            background: linear-gradient(135deg, #F3EEFF 0%, var(--meditation-card) 100%);
+            border-radius: 16px;
+            margin-bottom: 18px;
         }
 
-        .meditation-box .icon { font-size: 2.5rem; margin-bottom: 12px; }
-        .meditation-box h4 { color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 8px; }
-        .meditation-box p { color: #5E35B1; font-size: 0.95rem; }
+        .meditation-box .icon {
+            font-size: 2.8rem;
+            margin-bottom: 14px;
+        }
 
-        /* Sunday Box */
+        .meditation-box h4 {
+            color: #7B6BA8;
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .meditation-box p {
+            color: #8B7DB8;
+            font-size: 1rem;
+        }
+
+        /* Sunday Box - soft peach orange */
         .sunday-box {
             text-align: center;
-            padding: 25px 20px;
-            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
-            border-radius: 12px;
+            padding: 28px 20px;
+            background: linear-gradient(135deg, #FFF5ED 0%, var(--sunday-card) 100%);
+            border-radius: 16px;
         }
 
-        .sunday-box .icon { font-size: 2rem; margin-bottom: 10px; }
-        .sunday-box h4 { color: #AD1457; font-size: 1.2rem; margin-bottom: 15px; }
-        .sunday-box p { color: #880E4F; font-size: 0.9rem; line-height: 1.8; margin-bottom: 12px; text-align: left; }
+        .sunday-box .icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .sunday-box h4 {
+            color: #C87A4A;
+            font-size: 1.25rem;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .sunday-box p {
+            color: #9A6840;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
         .sunday-box a {
             display: inline-block;
-            margin-top: 10px;
-            padding: 12px 20px;
-            background: var(--sunday-primary);
+            margin-top: 12px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--sunday-primary) 0%, #D49060 100%);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
+            box-shadow: 0 3px 10px rgba(232, 168, 124, 0.3);
         }
 
-        /* Rest day */
+        /* Rest/Holiday day - soft sky blue */
         .rest-day {
             text-align: center;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-radius: 12px;
+            background: linear-gradient(135deg, #F0F9FF 0%, var(--rest-card) 100%);
+            border-radius: 16px;
         }
 
-        .rest-day .icon { font-size: 3rem; margin-bottom: 12px; }
-        .rest-day h4 { color: #2E7D32; font-size: 1.2rem; margin-bottom: 8px; }
-        .rest-day p { color: #388E3C; font-size: 0.95rem; }
+        .rest-day .icon {
+            font-size: 3.2rem;
+            margin-bottom: 14px;
+        }
+
+        .rest-day h4 {
+            color: #5A98B8;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .rest-day p {
+            color: #6BA8C8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
 
         /* Tips Section */
-        .tips-section { margin: 12px; }
+        .tips-section {
+            margin: 16px;
+        }
 
         .tips-toggle {
             width: 100%;
-            padding: 16px;
-            background: var(--bg-card);
+            padding: 18px;
+            background: linear-gradient(135deg, #FFF8E8 0%, #FFE8C0 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
@@ -442,99 +580,136 @@
         }
 
         .tips-toggle h3 {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: var(--text);
+            color: #8B7040;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .tips-toggle .arrow {
             font-size: 1.2rem;
-            color: var(--text-light);
+            color: #A08050;
             transition: transform 0.3s;
         }
 
-        .tips-toggle.open .arrow { transform: rotate(180deg); }
+        .tips-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
 
         .tips-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
             background: var(--bg-card);
-            border-radius: 0 0 12px 12px;
+            border-radius: 0 0 16px 16px;
             margin-top: -8px;
         }
 
-        .tips-content.open { max-height: 2000px; }
+        .tips-content.open {
+            max-height: 2000px;
+        }
 
         .tips-inner {
-            padding: 16px;
-            border-top: 1px solid var(--border);
+            padding: 20px;
+            border-top: 1px solid #F0E0C0;
         }
 
         .tip-item {
-            padding: 14px 0;
-            border-bottom: 1px dashed var(--border);
+            padding: 16px 0;
+            border-bottom: 1px dashed #E8D8C0;
         }
 
-        .tip-item:last-child { border-bottom: none; }
+        .tip-item:last-child {
+            border-bottom: none;
+        }
 
         .tip-title {
             font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 8px;
+            color: #6B5830;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
+            gap: 12px;
+            font-size: 1rem;
         }
 
         .tip-num {
-            background: var(--primary);
+            background: linear-gradient(135deg, #E8A840 0%, #D09030 100%);
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             flex-shrink: 0;
         }
 
         .tip-content {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            padding-left: 34px;
+            font-size: 0.95rem;
+            color: #7B6850;
+            padding-left: 38px;
         }
 
         .tip-content li {
-            margin: 6px 0;
+            margin: 8px 0;
             list-style: disc;
-            margin-left: 16px;
+            margin-left: 18px;
         }
 
         .footer {
             text-align: center;
-            padding: 30px 16px;
+            padding: 35px 16px;
             color: var(--text-light);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
-        /* Hide tips on meditation/sunday */
+        /* Hide tips on meditation/sunday/rest */
         body.meditation-mode .tips-section,
-        body.sunday-mode .tips-section {
+        body.sunday-mode .tips-section,
+        body.rest-mode .tips-section {
             display: none;
         }
 
-        @media (min-width: 500px) {
-            .container { padding: 0 0 50px 0; }
-            .day-cell { font-size: 1rem; }
+        /* Desktop - wider layout */
+        @media (min-width: 600px) {
+            .container {
+                max-width: 700px;
+                padding: 0 20px 60px;
+            }
+
+            .day-cell {
+                font-size: 1.05rem;
+            }
+
+            .header {
+                padding: 28px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.7rem;
+            }
+
+            .scripture-content {
+                padding: 28px;
+            }
+
+            .verse {
+                padding: 18px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .container {
+                max-width: 800px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -575,7 +750,7 @@
         <!-- Quick Navigation -->
         <div class="quick-nav">
             <button class="btn-prev" onclick="changeDay(-1)">
-                <span class="arrow">◀</span> 上一天
+                <span class="arrow">◀</span> 前一天
             </button>
             <button class="btn-today" onclick="goToToday()">
                 <span class="icon">📍</span> 今天
@@ -599,7 +774,7 @@
             </div>
         </div>
 
-        <!-- Tips Section (hidden on meditation/sunday days) -->
+        <!-- Tips Section (hidden on meditation/sunday/rest days) -->
         <div class="tips-section" id="tipsSection">
             <button class="tips-toggle" onclick="toggleTips()">
                 <h3>✨ 禱讀要訣（精簡版）</h3>
@@ -607,8 +782,8 @@
             </button>
             <div class="tips-content" id="tipsContent">
                 <div class="tips-inner">
-                    <p style="text-align:center;color:var(--accent);font-weight:600;margin-bottom:16px;">** 建立火熱禱告的關鍵要訣 **</p>
-                    
+                    <p style="text-align:center;color:#C08030;font-weight:600;margin-bottom:18px;">** 建立火熱禱告的關鍵要訣 **</p>
+
                     <div class="tip-item">
                         <div class="tip-title"><span class="tip-num">1</span> 要「先讀再禱」</div>
                         <ul class="tip-content">
@@ -621,7 +796,7 @@
                     <div class="tip-item">
                         <div class="tip-title"><span class="tip-num">2</span> 要「重讀重禱」</div>
                         <ul class="tip-content">
-                            <li>按聖靈的感動，重覆讀出心裡「被觸動的字詞」，唔好重覆！</li>
+                            <li>按聖靈的感動，重覆讀出心裡「被觸動的字詞」，不用怕重覆！</li>
                             <li>加重語氣地讀一些「重要的關鍵字詞」！！</li>
                             <li>禱告到後面時，如有感動，亦可以重新讀前面，自由禱告前面的相關意思。</li>
                         </ul>
@@ -655,7 +830,7 @@
         </div>
 
         <div class="footer">
-            <p>將祈禱手轉為聖靈🕊️</p>
+            <p>🙏 願主的話成為你腳前的燈、路上的光 ✨🕊️</p>
         </div>
     </div>
 
@@ -670,7 +845,7 @@
             '2025-09-24': '約3:18-19',
             '2025-09-26': '約1:12-13',
             '2025-09-29': '約1:14,16',
-            
+
             // ===== 2025年10月 =====
             '2025-10-01': '約1:17-18',
             '2025-10-03': '羅8:13',
@@ -686,7 +861,7 @@
             '2025-10-27': '太3:10,12',
             '2025-10-29': '太3:11',
             '2025-10-31': '太3:16-17',
-            
+
             // ===== 2025年11月 =====
             '2025-11-03': '太4:3-4',
             '2025-11-05': '太4:6-7',
@@ -700,7 +875,7 @@
             '2025-11-24': '太5:11-12',
             '2025-11-26': '太5:13-14',
             '2025-11-28': '太5:15-16',
-            
+
             // ===== 2025年12月 =====
             '2025-12-01': '太5:17-18',
             '2025-12-03': '太5:19-20',
@@ -715,7 +890,7 @@
             '2025-12-24': '太6:2-3',
             '2025-12-29': '太6:1,4',
             '2025-12-31': '太6:5-6',
-            
+
             // ===== 2026年1月 =====
             '2026-01-02': '太6:7-8',
             '2026-01-05': '太6:9-10',
@@ -730,7 +905,7 @@
             '2026-01-26': '太6:27-29',
             '2026-01-28': '太6:30,33-34',
             '2026-01-30': '太7:1-2',
-            
+
             // ===== 2026年2月 =====
             '2026-02-02': '太7:3,5',
             '2026-02-04': '太7:7-8',
@@ -743,7 +918,7 @@
             '2026-02-23': '太7:26-27',
             '2026-02-25': '太8:2-3',
             '2026-02-27': '太8:8,10,13',
-            
+
             // ===== 2026年3月 =====
             '2026-03-02': '太8:14-16',
             '2026-03-04': '太8:26-27',
@@ -758,7 +933,7 @@
             '2026-03-25': '太9:37-38',
             '2026-03-27': '太10:1-4',
             '2026-03-30': '太10:7-8',
-            
+
             // ===== 2026年4月 =====
             '2026-04-01': '太10:14-15',
             '2026-04-03': '太10:16-17',
@@ -772,7 +947,7 @@
             '2026-04-24': '太10:40,42',
             '2026-04-27': '太11:4-6',
             '2026-04-29': '太11:11-12',
-            
+
             // ===== 2026年5月 =====
             '2026-05-01': '太11:18-19',
             '2026-05-04': '太11:25',
@@ -786,7 +961,7 @@
             '2026-05-22': '太12:31-32',
             '2026-05-27': '太12:33-34',
             '2026-05-29': '太12:36-37',
-            
+
             // ===== 2026年6月 =====
             '2026-06-01': '太12:39-40',
             '2026-06-03': '太12:49-50',
@@ -800,7 +975,7 @@
             '2026-06-24': '太13:33',
             '2026-06-26': '太13:39,41-43',
             '2026-06-29': '太13:45',
-            
+
             // ===== 2026年7月 =====
             '2026-07-03': '太13:49-50',
             '2026-07-06': '太13:57-58',
@@ -815,7 +990,7 @@
             '2026-07-27': '太15:30-31',
             '2026-07-29': '太15:36-38',
             '2026-07-31': '太16:6,12',
-            
+
             // ===== 2026年8月 =====
             '2026-08-03': '太16:13,16-17',
             '2026-08-05': '太16:19-20',
@@ -830,7 +1005,7 @@
             '2026-08-26': '太18:7,9',
             '2026-08-28': '太18:10,13-14',
             '2026-08-31': '太18:15-17',
-            
+
             // ===== 2026年9月 =====
             '2026-09-02': '太18:18',
             '2026-09-04': '太18:19-20',
@@ -844,7 +1019,7 @@
             '2026-09-23': '太20:18-19',
             '2026-09-28': '太20:23',
             '2026-09-30': '太20:27-28',
-            
+
             // ===== 2026年10月 =====
             '2026-10-02': '太20:32-34',
             '2026-10-05': '太21:9',
@@ -858,7 +1033,7 @@
             '2026-10-26': '太22:29-30',
             '2026-10-28': '太22:32',
             '2026-10-30': '太22:37-40',
-            
+
             // ===== 2026年11月 =====
             '2026-11-02': '太23:3-5',
             '2026-11-04': '太23:11-12',
@@ -873,7 +1048,7 @@
             '2026-11-25': '太24:35-36,44',
             '2026-11-27': '太24:45-47',
             '2026-11-30': '太25:11-13',
-            
+
             // ===== 2026年12月 =====
             '2026-12-02': '太25:21',
             '2026-12-04': '太25:28-30',
@@ -902,15 +1077,28 @@
 
         function getDayType(date) {
             const day = date.getDay();
+            const dateKey = formatDateKey(date);
+
+            // Sunday
             if (day === 0) return 'sunday';
-            if (day === 2 || day === 4 || day === 6) return 'meditation';
-            return 'normal';
+
+            // Check if it's a prayer reading day (Mon, Wed, Fri with reading)
+            if ((day === 1 || day === 3 || day === 5) && READING_PLAN[dateKey]) {
+                return 'normal';
+            }
+
+            // Tue, Thu, Sat = meditation (if previous day has reading)
+            if (day === 2 || day === 4 || day === 6) {
+                return 'meditation';
+            }
+
+            // Rest/Holiday (Mon, Wed, Fri without reading)
+            return 'rest';
         }
 
         function getPreviousReadingDate(date) {
             const prev = new Date(date);
             prev.setDate(prev.getDate() - 1);
-            // Keep going back until we find a reading day
             while (!READING_PLAN[formatDateKey(prev)] && prev > new Date('2025-09-01')) {
                 prev.setDate(prev.getDate() - 1);
             }
@@ -927,28 +1115,30 @@
 
         function updateBodyClass() {
             const dayType = getDayType(selectedDate);
-            document.body.classList.remove('meditation-mode', 'sunday-mode');
+            document.body.classList.remove('meditation-mode', 'sunday-mode', 'rest-mode');
             if (dayType === 'meditation') {
                 document.body.classList.add('meditation-mode');
             } else if (dayType === 'sunday') {
                 document.body.classList.add('sunday-mode');
+            } else if (dayType === 'rest') {
+                document.body.classList.add('rest-mode');
             }
         }
 
         function renderCalendar() {
             const year = viewingMonth.getFullYear();
             const month = viewingMonth.getMonth();
-            
+
             document.getElementById('monthTitle').textContent = `${year}年${month + 1}月`;
-            
+
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const startDay = firstDay.getDay();
             const totalDays = lastDay.getDate();
-            
+
             const grid = document.getElementById('daysGrid');
             grid.innerHTML = '';
-            
+
             const prevMonthLastDay = new Date(year, month, 0).getDate();
             for (let i = startDay - 1; i >= 0; i--) {
                 const cell = document.createElement('div');
@@ -956,15 +1146,15 @@
                 cell.textContent = prevMonthLastDay - i;
                 grid.appendChild(cell);
             }
-            
+
             const today = new Date();
             for (let day = 1; day <= totalDays; day++) {
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
                 cell.textContent = day;
-                
+
                 const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                
+
                 if (READING_PLAN[dateKey]) cell.classList.add('has-reading');
                 if (today.getFullYear() === year && today.getMonth() === month && today.getDate() === day) {
                     cell.classList.add('today');
@@ -972,14 +1162,14 @@
                 if (selectedDate.getFullYear() === year && selectedDate.getMonth() === month && selectedDate.getDate() === day) {
                     cell.classList.add('selected');
                 }
-                
+
                 cell.onclick = (e) => {
                     e.stopPropagation();
                     selectDate(year, month, day);
                 };
                 grid.appendChild(cell);
             }
-            
+
             const remainingCells = 42 - (startDay + totalDays);
             for (let i = 1; i <= remainingCells && i <= 14; i++) {
                 const cell = document.createElement('div');
@@ -1062,7 +1252,7 @@
             const sectionTitle = document.getElementById('sectionTitle');
             const dateKey = formatDateKey(selectedDate);
             const dayType = getDayType(selectedDate);
-            
+
             // Sunday
             if (dayType === 'sunday') {
                 sectionIcon.textContent = '⛪';
@@ -1078,50 +1268,50 @@
                     </div>`;
                 return;
             }
-            
+
             // Meditation day (Tue, Thu, Sat)
             if (dayType === 'meditation') {
-                sectionIcon.textContent = '😌';
-                sectionTitle.textContent = '今天繼續默想經文';
-                
+                sectionIcon.textContent = '💛';
+                sectionTitle.textContent = '繼續默想前一天經文';
+
                 const prevDate = getPreviousReadingDate(selectedDate);
                 const prevDateKey = formatDateKey(prevDate);
                 const reading = READING_PLAN[prevDateKey];
-                
+
                 if (reading) {
                     container.innerHTML = `
                         <div class="meditation-box">
                             <div class="icon">😌💭</div>
                             <h4>默想日</h4>
-                            <p>今天繼續默想前一日的經文</p>
+                            
                         </div>
                         <div class="loading">
                             <div class="loading-spinner"></div>
                             載入經文中...
                         </div>`;
-                    
+
                     const verses = await fetchScripture(reading);
-                    
+
                     if (verses) {
                         const bookName = getBookFullName(reading);
                         const versesPart = reading.replace(/^[^\d]+/, '');
-                        
+
                         let html = `
                             <div class="meditation-box">
                                 <div class="icon">😌💭</div>
                                 <h4>默想日</h4>
-                                <p>今天繼續默想前一日的經文</p>
+                                <p></p>
                             </div>
                             <div class="scripture-ref">${bookName} ${versesPart}</div>
                             <div class="scripture-text">`;
-                        
+
                         verses.forEach(v => {
                             html += `<div class="verse">
                                 <span class="verse-num">${v.sec}</span>
                                 <span class="verse-text">${v.bible_text}</span>
                             </div>`;
                         });
-                        
+
                         html += '</div>';
                         container.innerHTML = html;
                     } else {
@@ -1129,7 +1319,6 @@
                             <div class="meditation-box">
                                 <div class="icon">😌💭</div>
                                 <h4>默想日</h4>
-                                <p>今天繼續默想前一日的經文</p>
                             </div>
                             <div class="scripture-ref">${reading}</div>
                             <div style="text-align:center;color:var(--text-light);padding:20px;">
@@ -1141,50 +1330,63 @@
                         <div class="meditation-box">
                             <div class="icon">😌💭</div>
                             <h4>默想日</h4>
-                            <p>今天是默想日，可以安靜思想神的話語</p>
+                            <p>默想日，可以安靜思想神的話語</p>
                         </div>`;
                 }
                 return;
             }
-            
+
+            // Rest/Holiday day - light blue
+            if (dayType === 'rest') {
+                sectionIcon.textContent = '🙏';
+                sectionTitle.textContent = '休息';
+                container.innerHTML = `
+                    <div class="rest-day">
+                        <div class="icon">🙏</div>
+                        <h4>休息</h4>
+                        <p>是日公眾假期<br>願你在主裡有美好的一天！</p>
+                    </div>`;
+                return;
+            }
+
             // Normal prayer reading day
             sectionIcon.textContent = '📜';
             sectionTitle.textContent = '今日禱讀經文';
-            
+
             const reading = READING_PLAN[dateKey];
-            
+
             if (!reading) {
                 container.innerHTML = `
                     <div class="rest-day">
                         <div class="icon">🙏</div>
-                        <h4>今日暫停禱讀</h4>
-                        <p>休息日或公眾假期<br>願你有美好的一天！</p>
+                        <h4>休息</h4>
+                        <p>今日是休息日或公眾假期<br>在主裡願你有美好的一天！</p>
                     </div>`;
                 return;
             }
-            
+
             container.innerHTML = `
                 <div class="loading">
                     <div class="loading-spinner"></div>
                     載入經文中...
                 </div>`;
-            
+
             const verses = await fetchScripture(reading);
-            
+
             if (verses) {
                 const bookName = getBookFullName(reading);
                 const versesPart = reading.replace(/^[^\d]+/, '');
-                
+
                 let html = `<div class="scripture-ref">${bookName} ${versesPart}</div>`;
                 html += '<div class="scripture-text">';
-                
+
                 verses.forEach(v => {
                     html += `<div class="verse">
                         <span class="verse-num">${v.sec}</span>
                         <span class="verse-text">${v.bible_text}</span>
                     </div>`;
                 });
-                
+
                 html += '</div>';
                 container.innerHTML = html;
             } else {
@@ -1219,4 +1421,5 @@
         loadScripture();
     </script>
 </body>
+
 </html>
